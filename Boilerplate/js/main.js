@@ -1,20 +1,20 @@
-var Song = Backbone.Model.extend({
+const Song = Backbone.Model.extend({
     initialize: function () {
         console.log('A new song has been created.')
     }
 });
 
-var song = new Song();
+const song = new Song();
 
 //Javascript
 
-var person = {};
+const person = {};
 person.name = 'Mosh';
 console.log(person.name);
 
 //Backbone, use set method
-var Song = Backbone.Model.extend();
-var song = new Song({
+const Song = Backbone.Model.extend();
+const song = new Song({
     title: 'Blue in Green',
     artist: 'Miles David',
     publisherYear: 1959
@@ -26,7 +26,7 @@ song.set('title', 'Blue in Green');
 song.unset('title');
 
 //Validation
-var Song = Backbone.Model.extend({
+const Song = Backbone.Model.extend({
     validate: function (attrs) {
         if (!attrs.title)
             return 'Title is required'
@@ -40,23 +40,35 @@ song.isValid()
 song.validationError
 
 //Inheritance
-var Animal = Backbone.model.extend({
+const Animal = Backbone.model.extend({
     walk: function(){
         console.log('Animal walking')
     }
 });
 
-var Dog = Animal.extend({
+const Dog = Animal.extend({
     walk: function () {
         console.log('Dog Walking')
     }
 });
-var dog = new Dog();
+const dog = new Dog();
 dog.walk();
 
 //Access walk from Animal and not from dog
-var Dog = Animal.extend({
+const Dog = Animal.extend({
     walk: function () {
         Animal.prototype.walk.apply(this);
     }
+});
+
+
+const Song = Backbone.models.extend({
+        defaults : {
+            sexy: "me"
+        }
+    }
+);
+
+const crazySong = new Song({
+
 });
