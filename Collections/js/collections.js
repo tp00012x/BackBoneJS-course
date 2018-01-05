@@ -1,39 +1,43 @@
-const Song = Backbone.Model.extend();
+const Vehicle = Backbone.Model.extend({
+    idAttribute: "registrationNumber",
+    urlRoot: "api/vehicles",
 
-const Songs = Backbone.Collection.extend({
-    model: Song
+    validate: attrs => {
+        if (!attrs.registrationNumber)
+            return "Registration is required.";
+    },
+
+    start: () => {
+        console.log("Vehicle started")
+    }
 });
 
-const songs = new Songs([
-    new Song({ title: 'Song 1'}),
-    new Song({ title: 'Song 2'}),
-    new Song({ title: 'Song 3'})
+const Car = Vehicle.extend({
+    start: function () {
+        console.log(`Car with registration number ${this.get("registrationNumber")} started`)
+    }
+});
+
+const Cars = Backbone.Collection.extend({
+        model: Car
+});
+
+const cars = new Cars([
+    new Car({ registrationNumber : "XLI887", color : "Blue" }),
+    new Car({ registrationNumber : "ZNP123", color : "Blue" }),
+    new Car({ registrationNumber : "XUV456", color : "Gray" })
 ]);
 
-songs.add(new Song({ title: 'Song 4'}));
+const blueCars = cars.where({color: "Blue"});
+console.log(blueCars);
 
-//songs.at(0)
-//songs.get('c1')
-//songs.remove(songs.at(0))
-//songs.length
+const car = cars.findWhere({registrationNumber: "XLI887"});
+console.log(car);
 
-const firstsong = songs.at(0);
+cars.remove(car);
 
-songs.add(new Song({ title: 'Song 1', genre: 'Jazz', downloads: 110}), { at: 0});
-songs.push(new Song({ title: 'Song 2', genre: 'Jazz', downloads: 90}));
+console.log(cars.toJSON());
 
-const jazzSongs = songs.where({ genre: 'Jazz'}); //Array
-const firstJazzSong = songs.findWhere({ genre: 'Jazz'}); //One item in the array
-
-console.log(jazzSongs);
-console.log(firstJazzSong);
-
-const topDownloads = songs.filter(function(song){
-    return song.get('downloads') >100;
-});
-
-console.log('Top Downloads', topDownloads);
-
-songs.each(function (song) {
-    console.log(song);
+cars.each(function(car) {
+    console.log(car);
 });

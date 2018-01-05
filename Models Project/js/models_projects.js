@@ -3,13 +3,13 @@ const Vehicle = Backbone.Model.extend({
     urlRoot: "api/vehicles",
 
     validate: attrs => {
-    if (!attrs.registrationNumber)
-        return "Registration is required.";
-},
+        if (!attrs.registrationNumber)
+            return "Registration is required.";
+    },
 
-start: () => {
-    console.log("Vehicle started")
-}
+    start: () => {
+        console.log("Vehicle started")
+    }
 });
 
 const Car = Vehicle.extend({
